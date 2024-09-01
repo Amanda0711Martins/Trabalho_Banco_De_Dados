@@ -7,23 +7,25 @@
     <title>Estatísticas</title>
 </head>
 <body>
-    <table>
-        <thead>
-            <tr>
-                <th>#</th>
-                <th>Nome</th>
-                <th>Total de Partidas</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for partida in lista_partidas %}
-            <tr>
-                <td>{{ partida.numero }}</td>
-                <td>{{ partida.nome }}</td>
-                <td>{{ partida.total_partidas }}</td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+    <div class="containerEstatistico">
+        
+        <div class="containerEstMain">
+
+            <div class="tituloEst">
+                <h3>Painel De Estatísticas</h3>
+            </div>
+
+            <div class="MenuEst">
+                <form action="/estatisticas" method="POST">
+                    <input type="submit" value="Minhas Estatísticas">
+                    <button type="submit" name="pesquisar" value="Estatísticas Geral">Estatísticas Gerais</button>  
+                    <input type="submit" value="Voltar">
+            </div>
+            
+            <form action="">
+                
+            </form>
+        </div>
+    </div>
 </body>
 </html>

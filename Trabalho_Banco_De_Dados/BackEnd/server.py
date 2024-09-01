@@ -231,10 +231,10 @@ def estatisticas(email):
 
 
     
-#Funções que mostram as estatísticas
+#Função que mostra as estatísticas gerais
 @app.route('/estatisticas', methods=['GET', 'POST'])
 def buscar_total_partidas():
-
+    lista_partidas = []
     if request.method == 'POST':
         if 'pesquisar' in request.form and request.form['pesquisar'] == 'pesquisar':
             email_jogador = request.form['email']
@@ -243,13 +243,11 @@ def buscar_total_partidas():
             val = (email_jogador,)
             mycursor.execute(sql, (val))
             part = mycursor.fetchall()
-
-            lista_partidas = []
-            for i, row in enumerate(part, start=1):  # Começar a numeração a partir de 1
+            for i, row in enumerate(part, start=1): 
                 dict_partidas = {"numero": i, "nome": row[0], "total_partidas": row[1]}
                 lista_partidas.append(dict_partidas)
-
-            return render_template('estatisticasgeral.html', lista_partidas=lista_partidas)
+        return render_template('estatisticasgeral.html', lista_partidas=lista_partidas)
+    return render_template('estatisticas.html')
     
 """@app.route('/estatisticas', methods=['GET', 'POST'])
 def buscar_media_pontuacao():
