@@ -10,7 +10,7 @@ app = Flask(__name__, static_url_path='/static')
 conn = pymysql.connect(
   host="localhost",
   user="root",
-  password="1234",
+  password="Minas@0202",
   database="Showdomilhao",
   charset="utf8mb4"
 )
@@ -120,7 +120,6 @@ def buscar_pergunta(id_partida):
     
     #Verificar se o jogador quis parar na rodada atual    
     if request.method == 'POST':
-        #if rodada_atual in (5, 9):
             if 'acao' in request.form and request.form['acao'] == 'parar':            
                 print(f"Parou na rodada {rodada_atual}")
 
@@ -232,20 +231,27 @@ def estatisticas(email):
 
 
     
-"""#Funções que mostram as estatísticas do jogador atual
+#Funções que mostram as estatísticas
 @app.route('/estatisticas', methods=['GET', 'POST'])
 def buscar_total_partidas():
-    if request.method == 'GET':
-        id_jogador = request.form['idjogador']
-        mycursor = conn.cursor()
-        sql = "SELECT j.nome, COUNT(p.idpartida) AS total_partidas FROM jogador j INNER JOIN partida p ON j.idjogador = p.idjogador WHERE j.idjogador = %s"
-        val = (id)
-        mycursor.execute(sql, (val))
-        qtde = mycursor.fetchone()        
-        print(f"Total de partidas {qtde}")
-        conn.commit()
+
+    if request.method == 'POST':
+        if 'pesquisar' in request.form and request.form['pesquisar'] == 'pesquisar':
+            email_jogador = request.form['email']
+            mycursor = conn.cursor()
+            sql = "SELECT j.nome, COUNT(*) AS total_partidas FROM jogador j INNER JOIN partida p ON j.idjogador = p.idjogador GROUP BY j.nome"
+            val = (email_jogador,)
+            mycursor.execute(sql, (val))
+            part = mycursor.fetchall()
+
+            lista_partidas = []
+            for i, row in enumerate(part, start=1):  # Começar a numeração a partir de 1
+                dict_partidas = {"numero": i, "nome": row[0], "total_partidas": row[1]}
+                lista_partidas.append(dict_partidas)
+
+            return render_template('estatisticasgeral.html', lista_partidas=lista_partidas)
     
-@app.route('/estatisticas', methods=['GET', 'POST'])
+"""@app.route('/estatisticas', methods=['GET', 'POST'])
 def buscar_media_pontuacao():
     if request.method == 'GET':
         id_jogador = request.form['idjogador']
@@ -256,7 +262,6 @@ def buscar_media_pontuacao():
         qtde = mycursor.fetchone()        
         print(f"Total de partidas {qtde}")
         conn.commit()"""
-
 if __name__ == '__main__':
     #Debug = true para ver os erros mais detalhados
     app.run(debug=True)

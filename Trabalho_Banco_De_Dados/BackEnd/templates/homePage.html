@@ -47,10 +47,8 @@
                                 <span class="num_resposta">{{alternativa.numero}}</span>{{ alternativa.texto }}
                             </button>
                         </div>
-                        {% endfor %}
-                        {% if rodada_atual == 5 or rodada_atual == 9 %}
-                            <button type="submit" name="acao" value="parar" id="botaoParar" style="display: none;">Parar</button> 
-                        {% endif %}    
+                        {% endfor %}                        
+                            <button type="submit" name="acao" value="parar" id="botaoParar" style="display: none;">Parar</button>                           
                     </form>
                 </div>
 

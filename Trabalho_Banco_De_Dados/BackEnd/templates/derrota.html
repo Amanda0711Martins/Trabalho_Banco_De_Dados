@@ -18,11 +18,12 @@
                 <img src="../static/Img/Silvio-removebg-preview.png" alt="Silvio Santos">
             </div>
        
-            <div class="escolhaPosJogo">
-                <input class="novoJogo" type="submit" value="Menu">
-                <input class="sairJogo" type="submit" value="Sair">
-             </div>
-        
+            <form action="{{ url_for('menu', email=email) }}" method="POST">
+                <div class="escolhaPosJogo">
+                    <input class="novoJogo" type="submit" value="Menu">
+                    <input class="sairJogo" type="submit" value="Sair">
+                </div>
+            </form>
         </div>
     </div>
 </body>

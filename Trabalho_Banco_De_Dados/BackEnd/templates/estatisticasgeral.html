@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../static/Css/style.css">
+    <title>Estatísticas</title>
+</head>
+<body>
+    <table>
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Nome</th>
+                <th>Total de Partidas</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for partida in lista_partidas %}
+            <tr>
+                <td>{{ partida.numero }}</td>
+                <td>{{ partida.nome }}</td>
+                <td>{{ partida.total_partidas }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>
