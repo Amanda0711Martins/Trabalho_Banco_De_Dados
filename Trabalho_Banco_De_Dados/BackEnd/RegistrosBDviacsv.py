@@ -83,3 +83,26 @@ conn.commit()
 
 # Fechar a conexão
 conn.close()
+
+#Realizamos abaixo a operação para inserção dos registros na tabela partida
+# Criar um cursor para executar as queries
+cursor = conn.cursor()
+
+# Nome do arquivo CSV e tabela
+arquivo_csv = 'C:/Users/AmandaeLuiz04/Downloads/Trabalho_Banco_De_Dados/Trabalho_Banco_De_Dados/BackEnd/partida.csv'
+tabela = 'partida'  # inserção de dados da tabela partida
+
+# Abrir o arquivo CSV
+with open(arquivo_csv, 'r', encoding='utf-8') as csvfile:
+    csvreader = csv.reader(csvfile)
+    next(csvreader)  # Ignorar o cabeçalho
+
+    for row in csvreader:
+        sql = f"INSERT INTO {tabela} (idjogador, pontuacaoparcial, rodada) VALUES (%s, %s, %s)"
+        cursor.execute(sql, row)
+
+# Confirmar as alterações
+conn.commit()
+
+# Fechar a conexão
+conn.close()

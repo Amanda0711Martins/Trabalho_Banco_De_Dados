@@ -17,7 +17,7 @@
             </div>
 
             <div class="cardEscolha">
-                <div id="escolhas"><a href="{{ url_for('iniciar_partida', email=email) }}"><button class="Verde">Jogar</button></a><a href="/estatisticas"><button class="Amarelo">Estatísticas</button></a> <a href="/"><button class="Vermelho">Sair</button></a></div>
+                <div id="escolhas"><a href="{{ url_for('iniciar_partida', email=email) }}"><button class="Verde">Jogar</button></a><a href="{{ url_for('estatisticas', email=email) }}"><button class="Amarelo">Estatísticas</button></a> <a href="/"><button class="Vermelho">Sair</button></a></div>
             </div>
 
         </div>

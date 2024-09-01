@@ -215,7 +215,24 @@ def trocar_senha():
     else:
         return render_template('esqueceusenha.html')
     
-#Funções que mostram as estatísticas do jogador atual
+
+#Acessar página de estatísticas
+
+@app.route('/estatisticas/<string:email>', methods=['GET', 'POST'])
+def estatisticas(email):
+    if request.method == 'POST':
+        email = request.form['email']
+        # Consultar no banco de dados se o email é válido
+        mycursor = conn.cursor()
+        sql = "SELECT * FROM jogador WHERE email = %s"
+        val = (email,)
+        mycursor.execute(sql, val)
+        jogador = mycursor.fetchone()
+    return render_template('estatisticas.html', email=email)
+
+
+    
+"""#Funções que mostram as estatísticas do jogador atual
 @app.route('/estatisticas', methods=['GET', 'POST'])
 def buscar_total_partidas():
     if request.method == 'GET':
@@ -238,7 +255,7 @@ def buscar_media_pontuacao():
         mycursor.execute(sql, (val))
         qtde = mycursor.fetchone()        
         print(f"Total de partidas {qtde}")
-        conn.commit()
+        conn.commit()"""
 
 if __name__ == '__main__':
     #Debug = true para ver os erros mais detalhados
