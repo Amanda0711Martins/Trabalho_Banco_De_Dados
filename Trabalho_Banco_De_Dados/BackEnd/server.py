@@ -120,6 +120,7 @@ def buscar_pergunta(id_partida):
     
     #Verificar se o jogador quis parar na rodada atual    
     if request.method == 'POST':
+        #if rodada_atual in (5, 9):
             if 'acao' in request.form and request.form['acao'] == 'parar':            
                 print(f"Parou na rodada {rodada_atual}")
 
@@ -214,7 +215,6 @@ def trocar_senha():
     else:
         return render_template('esqueceusenha.html')
     
-
 #Acessar página de estatísticas
 
 @app.route('/estatisticas/<string:email>', methods=['GET', 'POST'])
@@ -228,28 +228,21 @@ def estatisticas(email):
         mycursor.execute(sql, val)
         jogador = mycursor.fetchone()
     return render_template('estatisticas.html', email=email)
-
-
     
-#Função que mostra as estatísticas gerais
+"""#Funções que mostram as estatísticas do jogador atual
 @app.route('/estatisticas', methods=['GET', 'POST'])
 def buscar_total_partidas():
-    lista_partidas = []
-    if request.method == 'POST':
-        if 'pesquisar' in request.form and request.form['pesquisar'] == 'pesquisar':
-            email_jogador = request.form['email']
-            mycursor = conn.cursor()
-            sql = "SELECT j.nome, COUNT(*) AS total_partidas FROM jogador j INNER JOIN partida p ON j.idjogador = p.idjogador GROUP BY j.nome"
-            val = (email_jogador,)
-            mycursor.execute(sql, (val))
-            part = mycursor.fetchall()
-            for i, row in enumerate(part, start=1): 
-                dict_partidas = {"numero": i, "nome": row[0], "total_partidas": row[1]}
-                lista_partidas.append(dict_partidas)
-        return render_template('estatisticasgeral.html', lista_partidas=lista_partidas)
-    return render_template('estatisticas.html')
+    if request.method == 'GET':
+        id_jogador = request.form['idjogador']
+        mycursor = conn.cursor()
+        sql = "SELECT j.nome, COUNT(p.idpartida) AS total_partidas FROM jogador j INNER JOIN partida p ON j.idjogador = p.idjogador WHERE j.idjogador = %s"
+        val = (id)
+        mycursor.execute(sql, (val))
+        qtde = mycursor.fetchone()        
+        print(f"Total de partidas {qtde}")
+        conn.commit()
     
-"""@app.route('/estatisticas', methods=['GET', 'POST'])
+@app.route('/estatisticas', methods=['GET', 'POST'])
 def buscar_media_pontuacao():
     if request.method == 'GET':
         id_jogador = request.form['idjogador']
@@ -260,6 +253,7 @@ def buscar_media_pontuacao():
         qtde = mycursor.fetchone()        
         print(f"Total de partidas {qtde}")
         conn.commit()"""
+
 if __name__ == '__main__':
     #Debug = true para ver os erros mais detalhados
     app.run(debug=True)

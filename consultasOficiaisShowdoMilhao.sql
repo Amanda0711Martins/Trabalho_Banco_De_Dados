@@ -44,3 +44,19 @@ FROM jogador j
 INNER JOIN partida p ON j.idjogador = p.idjogador
 GROUP BY j.nome
 ORDER BY media_pontuacao DESC;
+
+SELECT 
+    j.nome AS jogador,
+    ROUND(
+        (SUM(CASE WHEN a.alternativacorreta = 1 THEN 1 ELSE 0 END) / COUNT(a.idalternativa)) * 100, 
+        2
+    ) AS percentual_acertos,
+    ROUND(
+        (SUM(CASE WHEN a.alternativacorreta = 0 THEN 1 ELSE 0 END) / COUNT(a.idalternativa)) * 100, 
+        2
+    ) AS percentual_erros
+FROM jogador j
+INNER JOIN partida pa ON j.idjogador = pa.idjogador
+INNER JOIN alternativa a ON pa.idpartida = a.idpergunta
+INNER JOIN pergunta p ON a.idpergunta = p.idpergunta
+GROUP BY j.nome;
