@@ -186,15 +186,16 @@ a#lembrar{
     justify-content: space-between;
     align-items: center;
     width: 1280px;
-    height: 600px;
+    min-height: 80vh; 
     box-shadow: 1px 1px 1px #ccc;
     background-image: linear-gradient(to right, #0427ba, #0f1b84, #111b6f, #0c1b96, #052ccc);
     background-size: 400% 400%;
     margin: auto;
     border-radius: 5px;
-    padding: 20px; 
+    padding: 20px;
     animation: gradientAnimation 12s ease infinite;
 }
+
 
 @keyframes gradientAnimation {
     0% {
