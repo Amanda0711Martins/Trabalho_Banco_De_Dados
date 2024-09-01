@@ -1,7 +1,7 @@
 // Função para iniciar o cronômetro
 function iniciarTempo(duracao, display) {
     var tempo = duracao, minutos, segundos;
-    setInterval(function () {
+    setInterval(async function  () {
         minutos = parseInt(tempo / 60, 10);
         segundos = parseInt(tempo % 60, 10);
 
@@ -19,8 +19,15 @@ function iniciarTempo(duracao, display) {
         if (--tempo < 0) {
             tempo = duracao;
         }
+        await fetch('http://') //colocar a rota do back end fim de jogo 
+        .then(T => T.json())
+        .then(console.log)
     }, 1000);
+
+
 }
+
+
 
 // Função para exibir mensagens com animação
 function exibirMensagens() {

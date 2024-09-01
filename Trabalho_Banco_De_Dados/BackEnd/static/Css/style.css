@@ -443,6 +443,33 @@ button.Vermelho:focus {
     width: 100%;
 }
 
+.cardMainRespostas >form{
+    width: 100%;
+    /* gap: 20px; */
+}
+
+.opcResposta > button[type="submit"] {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    background-image: linear-gradient(to right, #f12f04, #d4340c, #c21f04, #931e04);
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.opcResposta > button[type="submit"]:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+    transform: scale(1.05);
+}
+
+
 .num_resposta {
     display: flex;
     justify-content: center;
@@ -617,8 +644,68 @@ img.iconeValor {
     transform: scale(1.05);
 }
 
+.sairJogo:focus {
+    outline: 2px solid #c21f04;
+    outline-offset: 2px;
+}
+
 .novoJogo:hover {
     background-color: #2ecc71;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     transform: scale(1.05);
+}
+
+.novoJogo:focus {
+    outline: 2px solid #27ae60;
+    outline-offset: 2px;
+}
+
+/* Css Da Tela de Estatistica */
+
+.containerEstatistico{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.containerEstMain{
+    width: 100%;
+    max-width: 1200px;
+    height: 600px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    background-image: linear-gradient(to right, #0427ba, #0f1b84, #111b6f, #0c1b96, #052ccc);
+    background-size: 400% 400%;
+    border-radius: 10px;
+    padding: 30px;
+    animation: gradientAnimation 12s ease infinite;
+}
+
+.tituloEst{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.6rem;
+}
+
+.tituloEst h3{
+    color: white;
+}
+
+.MenuEst{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 30px;
+}
+
+.MenuEst input[type="submit"]{
+    padding: 20px;
+    border-radius: 5px;
+    border: none;
+    offset: 0;
+    margin: 10px;
+    cursor: pointer;
 }
