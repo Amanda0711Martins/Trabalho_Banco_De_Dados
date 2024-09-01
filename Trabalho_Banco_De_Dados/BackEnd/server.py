@@ -22,8 +22,8 @@ def root():
         email = request.form['email']
         senha = request.form['senha']
 
-        print(email)
-        print(senha)
+        print(email) #somente para verificação de log no backend
+        print(senha) #somente para verificação de log no backend
 
         # Consultar no banco de dados se o jogador está cadastrado
         mycursor = conn.cursor()
@@ -31,7 +31,7 @@ def root():
         val = (email,)
         mycursor.execute(sql, val)
         jogador = mycursor.fetchone()
-        print(jogador)
+        print(jogador) #somente para verificação de log no backend
 
         #Consultar no banco de dados se a senha está correta
         if jogador[3] == senha:
@@ -56,7 +56,7 @@ def cadastro():
         senha = request.form['senha']
         confirmasenha = request.form['confirmasenha']
         
-         # Verificar se o email já existe
+         # Verificação se o email já existe no banco de dados
         mycursor = conn.cursor()
         sql = "SELECT * FROM jogador WHERE email = %s"
         val = (email,)
@@ -121,9 +121,9 @@ def buscar_pergunta(id_partida):
     #Verificar se o jogador quis parar na rodada atual    
     if request.method == 'POST':        
             if 'acao' in request.form and request.form['acao'] == 'parar':            
-                print(f"Parou na rodada {rodada_atual}")
+                print(f"Parou na rodada {rodada_atual}") #somente para verificação de log no backend
 
-                # Atualizar o banco de dados
+                # Se ele parouu, atualizar o banco de dados com a pontuação total e a última rodada jogada
                 sql = "UPDATE partida SET rodada = %s WHERE idpartida = %s"
                 mycursor.execute(sql, (rodada_atual, id_partida))
                 conn.commit()
@@ -159,7 +159,7 @@ def buscar_pergunta(id_partida):
         val = (resposta_usuario)
         mycursor.execute(sql, val)
         resultado = mycursor.fetchone()
-        print(resultado)
+        print(resultado) #somente para verificação de log no backend
         if resultado[0] == 1:
             print("Resposta correta")
             
@@ -183,7 +183,7 @@ def buscar_pergunta(id_partida):
             return render_template('derrota.html', email=email[0])         
 
     #Prints para testar antes de enviar para o front end
-    print (idpergunta)
+    print (idpergunta) 
     print (perguntaatual)
     print (alternativas)
 
@@ -197,7 +197,7 @@ def trocar_senha():
         email = request.form['email']
         nova_senha = request.form['senhaNova']
         confirmar_senha = request.form['confirmaNovaSenha']
-        print(email)
+        print(email) #somente para verificação de log no backend
        
         # Consultar no banco de dados se o email é válido
         mycursor = conn.cursor()
@@ -232,32 +232,7 @@ def estatisticas(email):
         val = (email,)
         mycursor.execute(sql, val)
         jogador = mycursor.fetchone()
-    return render_template('estatisticas.html', email=email)
-    
-"""#Funções que mostram as estatísticas do jogador atual
-@app.route('/estatisticas', methods=['GET', 'POST'])
-def buscar_total_partidas():
-    if request.method == 'GET':
-        id_jogador = request.form['idjogador']
-        mycursor = conn.cursor()
-        sql = "SELECT j.nome, COUNT(p.idpartida) AS total_partidas FROM jogador j INNER JOIN partida p ON j.idjogador = p.idjogador WHERE j.idjogador = %s"
-        val = (id)
-        mycursor.execute(sql, (val))
-        qtde = mycursor.fetchone()        
-        print(f"Total de partidas {qtde}")
-        conn.commit()
-    
-@app.route('/estatisticas', methods=['GET', 'POST'])
-def buscar_media_pontuacao():
-    if request.method == 'GET':
-        id_jogador = request.form['idjogador']
-        mycursor = conn.cursor()
-        sql = "SELECT j.nome, ROUND(AVG(p.pontuacaoparcial), 2) AS 'media_pontuacao' FROM jogador j INNER JOIN partida p ON j.idjogador = p.idjogador WHERE j.idjogador = %s"
-        val = (id)
-        mycursor.execute(sql, (val))
-        qtde = mycursor.fetchone()        
-        print(f"Total de partidas {qtde}")
-        conn.commit()"""
+    return render_template('estatisticas.html', email=email)    
 
 if __name__ == '__main__':
     #Debug = true para ver os erros mais detalhados
