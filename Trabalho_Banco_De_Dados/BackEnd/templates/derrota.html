@@ -16,14 +16,12 @@
                     <p> Olha, meu amigo, você começou com tudo e agora perdeu o tudo! Não é possível, ou melhor, não é ‘Possilvio’! Mas fique tranquilo, porque aqui sempre tem uma chance para um novo começo.</p>
                 </div>
                 <img src="../static/Img/Silvio-removebg-preview.png" alt="Silvio Santos">
-            </div>
-       
-            <form action="{{ url_for('menu', email=email) }}" method="POST">
-                <div class="escolhaPosJogo">
-                    <input class="novoJogo" type="submit" value="Menu">
-                    <input class="sairJogo" type="submit" value="Sair">
-                </div>
-            </form>
+            </div>       
+            
+            <div class="escolhaPosJogo">
+                <a href="/menu/{{ email }}"><input type="submit" class="novoJogo" value="Menu"></a>
+                <a href="/"><input type="submit" class="sairJogo" value="Sair"></a>
+            </div>            
         </div>
     </div>
 </body>

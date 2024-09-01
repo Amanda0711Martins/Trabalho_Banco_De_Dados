@@ -119,8 +119,7 @@ def buscar_pergunta(id_partida):
         return render_template('vitoria.html')
     
     #Verificar se o jogador quis parar na rodada atual    
-    if request.method == 'POST':
-        #if rodada_atual in (5, 9):
+    if request.method == 'POST':        
             if 'acao' in request.form and request.form['acao'] == 'parar':            
                 print(f"Parou na rodada {rodada_atual}")
 
@@ -128,7 +127,10 @@ def buscar_pergunta(id_partida):
                 sql = "UPDATE partida SET rodada = %s WHERE idpartida = %s"
                 mycursor.execute(sql, (rodada_atual, id_partida))
                 conn.commit()
-                return render_template('desistiu.html')
+                sqlemail = "SELECT email FROM jogador as j JOIN partida as p ON j.idjogador = p.idjogador" 
+                mycursor.execute(sqlemail,)
+                email = mycursor.fetchone()         
+                return render_template('desistiu.html', email=email[0])
 
  # Buscar uma pergunta aleatória no banco de dados, dentre as 100 perguntas cadastradas   
     mycursor.execute("SELECT * FROM pergunta ORDER BY RAND() LIMIT 1")
@@ -174,8 +176,11 @@ def buscar_pergunta(id_partida):
             sqlpontuacao = "UPDATE partida SET pontuacaoparcial = 0 WHERE idpartida = %s"           
             mycursor.execute(sqlpontuacao, (id_partida,))
             conn.commit() 
-            print("Resposta errada.")   
-            return render_template('derrota.html')         
+            print("Resposta errada.")
+            sqlemail = "SELECT email FROM jogador as j JOIN partida as p ON j.idjogador = p.idjogador" 
+            mycursor.execute(sqlemail,)
+            email = mycursor.fetchone()            
+            return render_template('derrota.html', email=email[0])         
 
     #Prints para testar antes de enviar para o front end
     print (idpergunta)
